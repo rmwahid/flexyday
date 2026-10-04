@@ -1,0 +1,307 @@
+@import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
+
+/*
+ * Semantic tokens with light, dark, and user-selectable themes.
+ *
+ * Selection works through a `data-theme` attribute on <html>:
+ * - no attribute  -> follow the system (the media query below applies)
+ * - "light"       -> light values, system preference ignored
+ * - "dark"        -> dark values, system preference ignored
+ *
+ * The @theme inline block maps the raw values onto Tailwind utilities
+ * (bg-panel, text-ink, ...), so utilities resolve to var(--...) and follow
+ * whichever theme is active without a `dark:` variant on every class.
+ *
+ * Color semantics used consistently across the app:
+ * - company / local: the two country tones, company red, local blue.
+ *   They sit on tinted fills; the *-ink tokens are the readable text on them.
+ * - earn / spend: days worked through earn a day (emerald), days taken spend
+ *   one (amber). The balance readout uses the same pair everywhere.
+ * - accent: the single brand accent (indigo). Reserved for actions and
+ *   focus, never for status.
+ * - ink / paper: the neutral base. Paper is the page, panel the raised layer.
+ *
+ * Radius system: panels rounded-3xl, cards rounded-2xl, controls rounded-xl.
+ * No emojis anywhere in the UI; glyphs come from @lucide/svelte.
+ */
+
+:root {
+  color-scheme: light;
+
+  --paper: oklch(0.965 0.006 265);
+  --panel: oklch(1 0 0);
+  --panel-soft: oklch(0.982 0.004 265);
+  --ink: oklch(0.24 0.028 265);
+  --ink-muted: oklch(0.49 0.022 265);
+  --ink-faint: oklch(0.62 0.018 265);
+  --line: oklch(0.898 0.008 265);
+  --line-strong: oklch(0.82 0.012 265);
+
+  --accent: oklch(0.5 0.19 275);
+  --accent-ink: oklch(0.97 0.01 280);
+  --accent-soft: oklch(0.93 0.05 280);
+
+  --company: oklch(0.928 0.045 22);
+  --company-ink: oklch(0.47 0.16 22);
+  --company-dot: oklch(0.58 0.2 22);
+  --local: oklch(0.924 0.05 252);
+  --local-ink: oklch(0.44 0.155 255);
+  --local-dot: oklch(0.55 0.19 258);
+  --earn: oklch(0.912 0.06 162);
+  --earn-ink: oklch(0.4 0.105 162);
+  --earn-dot: oklch(0.52 0.14 162);
+  --spend: oklch(0.932 0.065 82);
+  --spend-ink: oklch(0.44 0.115 72);
+  --spend-dot: oklch(0.6 0.15 68);
+
+  --shadow-soft: 0 1px 2px rgb(30 27 75 / 0.05), 0 12px 32px -12px rgb(30 27 75 / 0.16);
+  --shadow-pop: 0 2px 4px rgb(30 27 75 / 0.08), 0 20px 48px -16px rgb(30 27 75 / 0.28);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: oklch(0.165 0.014 270);
+  --panel: oklch(0.208 0.016 270);
+  --panel-soft: oklch(0.19 0.015 270);
+  --ink: oklch(0.93 0.006 265);
+  --ink-muted: oklch(0.68 0.014 265);
+  --ink-faint: oklch(0.55 0.014 265);
+  --line: oklch(0.295 0.016 270);
+  --line-strong: oklch(0.38 0.018 270);
+
+  --accent: oklch(0.72 0.15 282);
+  --accent-ink: oklch(0.2 0.03 280);
+  --accent-soft: oklch(0.28 0.07 280);
+
+  --company: oklch(0.3 0.075 20);
+  --company-ink: oklch(0.82 0.09 20);
+  --company-dot: oklch(0.72 0.14 20);
+  --local: oklch(0.3 0.075 255);
+  --local-ink: oklch(0.8 0.09 255);
+  --local-dot: oklch(0.72 0.12 258);
+  --earn: oklch(0.28 0.06 162);
+  --earn-ink: oklch(0.8 0.09 162);
+  --earn-dot: oklch(0.72 0.11 162);
+  --spend: oklch(0.3 0.06 78);
+  --spend-ink: oklch(0.82 0.1 75);
+  --spend-dot: oklch(0.76 0.13 72);
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.55);
+  --shadow-pop: 0 2px 6px rgb(0 0 0 / 0.4), 0 28px 64px -20px rgb(0 0 0 / 0.65);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --paper: oklch(0.165 0.014 270);
+    --panel: oklch(0.208 0.016 270);
+    --panel-soft: oklch(0.19 0.015 270);
+    --ink: oklch(0.93 0.006 265);
+    --ink-muted: oklch(0.68 0.014 265);
+    --ink-faint: oklch(0.55 0.014 265);
+    --line: oklch(0.295 0.016 270);
+    --line-strong: oklch(0.38 0.018 270);
+
+    --accent: oklch(0.72 0.15 282);
+    --accent-ink: oklch(0.2 0.03 280);
+    --accent-soft: oklch(0.28 0.07 280);
+
+    --company: oklch(0.3 0.075 20);
+    --company-ink: oklch(0.82 0.09 20);
+    --company-dot: oklch(0.72 0.14 20);
+    --local: oklch(0.3 0.075 255);
+    --local-ink: oklch(0.8 0.09 255);
+    --local-dot: oklch(0.72 0.12 258);
+    --earn: oklch(0.28 0.06 162);
+    --earn-ink: oklch(0.8 0.09 162);
+    --earn-dot: oklch(0.72 0.11 162);
+    --spend: oklch(0.3 0.06 78);
+    --spend-ink: oklch(0.82 0.1 75);
+    --spend-dot: oklch(0.76 0.13 72);
+
+    --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 40px -16px rgb(0 0 0 / 0.55);
+    --shadow-pop: 0 2px 6px rgb(0 0 0 / 0.4), 0 28px 64px -20px rgb(0 0 0 / 0.65);
+  }
+}
+
+@theme inline {
+  --font-sans:
+    "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-panel-soft: var(--panel-soft);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-company: var(--company);
+  --color-company-ink: var(--company-ink);
+  --color-company-dot: var(--company-dot);
+  --color-local: var(--local);
+  --color-local-ink: var(--local-ink);
+  --color-local-dot: var(--local-dot);
+  --color-earn: var(--earn);
+  --color-earn-ink: var(--earn-ink);
+  --color-earn-dot: var(--earn-dot);
+  --color-spend: var(--spend);
+  --color-spend-ink: var(--spend-ink);
+  --color-spend-dot: var(--spend-dot);
+
+  --shadow-soft: var(--shadow-soft);
+  --shadow-pop: var(--shadow-pop);
+}
+
+@layer base {
+  body {
+    color: var(--ink);
+    background:
+      radial-gradient(58rem 30rem at 92% -8rem, color-mix(in oklab, var(--local) 38%, transparent) 0%, transparent 62%),
+      radial-gradient(52rem 30rem at -6% -10rem, color-mix(in oklab, var(--company) 36%, transparent) 0%, transparent 58%),
+      radial-gradient(110rem 42rem at 50% -12rem, var(--panel) 0%, transparent 62%),
+      var(--paper);
+    /* Keeps the fixed backdrop and the sticky column moving as one layer. */
+    background-attachment: fixed;
+    font-feature-settings: "ss01";
+  }
+
+  /* Calendar day numbers are data: keep digits equal width. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+}
+
+@layer utilities {
+  /* Gutters hide the scrollbar while keeping the strip scrollable. */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Shared entrance: sections rise once when they enter the viewport. */
+  .rise {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hero headline draws itself in word by word. */
+  .headline-word {
+    display: inline-block;
+    animation: headline-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes headline-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.55em) rotate(2deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+  }
+
+  /* A soft shimmer that sweeps loading tiles. */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 20%,
+      color-mix(in oklab, var(--ink) 9%, transparent) 50%,
+      transparent 80%
+    );
+    animation: shimmer-slide 1.6s ease-in-out infinite;
+  }
+
+  @keyframes shimmer-slide {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  /* The drifting aurora behind the hero. transform and opacity only. */
+  .aurora-drift {
+    animation: aurora-drift 16s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-drift {
+    from {
+      transform: translate3d(-4%, -2%, 0) scale(1);
+      opacity: 0.85;
+    }
+    to {
+      transform: translate3d(4%, 3%, 0) scale(1.08);
+      opacity: 1;
+    }
+  }
+
+  /* Slow float for decorative orbs. */
+  .floaty {
+    animation: floaty 7s ease-in-out infinite;
+  }
+
+  @keyframes floaty {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* The balance needle eases to its new angle on every change. */
+  .gauge-needle {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise,
+    .headline-word,
+    .aurora-drift,
+    .floaty {
+      animation: none;
+    }
+    .shimmer::after {
+      display: none;
+    }
+    .gauge-needle {
+      transition: none;
+    }
+  }
+}

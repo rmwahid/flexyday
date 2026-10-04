@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "flexyday",
+  "compatibility_date": "2026-09-30",
+  "pages_build_output_dir": ".svelte-kit/cloudflare",
+  "kv_namespaces": [
+    {
+      "binding": "FLEXYDAY_KV",
+      // Local development emulates KV and ignores this id; the deployed Pages
+      // build binds to it.
+      "id": "37ef03fe84874e369ef1124c9a1ce758"
+    }
+  ]
+}

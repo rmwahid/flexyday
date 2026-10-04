@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FlexyDay">
+  <!--
+    The FlexyDay mark: a rounded tile brushed with the two country colours
+    (company red into employee blue) holding the Lucide calendar-range glyph.
+    Follows the browser colour scheme: the darker pair with a light glyph on
+    light chrome, the lighter pair with a dark glyph on dark chrome.
+  -->
+  <style>
+    .dark-only { display: none; }
+    @media (prefers-color-scheme: dark) {
+      .light-only { display: none; }
+      .dark-only { display: block; }
+    }
+  </style>
+
+  <defs>
+    <linearGradient id="tile-light" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d73240" />
+      <stop offset="1" stop-color="#156cdd" />
+    </linearGradient>
+    <linearGradient id="tile-dark" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ef7e80" />
+      <stop offset="1" stop-color="#74a6ef" />
+    </linearGradient>
+  </defs>
+
+  <g class="light-only">
+    <rect width="64" height="64" rx="16" fill="url(#tile-light)" />
+    <g
+      transform="translate(12 12) scale(1.6667)"
+      fill="none"
+      stroke="#f1f3f8"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M16 2v3" />
+      <path d="M3 9h18" />
+      <path d="M8 2v3" />
+      <path d="M17 13h-6" />
+      <path d="M13 17H7" />
+      <path d="M7 13h.01" />
+      <path d="M17 17h.01" />
+    </g>
+  </g>
+
+  <g class="dark-only">
+    <rect width="64" height="64" rx="16" fill="url(#tile-dark)" />
+    <g
+      transform="translate(12 12) scale(1.6667)"
+      fill="none"
+      stroke="#0c0e15"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M16 2v3" />
+      <path d="M3 9h18" />
+      <path d="M8 2v3" />
+      <path d="M17 13h-6" />
+      <path d="M13 17H7" />
+      <path d="M7 13h.01" />
+      <path d="M17 17h.01" />
+    </g>
+  </g>
+</svg>
