@@ -2,12 +2,17 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "flexyday",
   "compatibility_date": "2026-09-30",
-  "pages_build_output_dir": ".svelte-kit/cloudflare",
+  // Deploys as a Cloudflare Worker with static assets. The adapter emits the
+  // worker entry and the asset directory below; wrangler uploads both. Local
+  // development emulates KV and ignores this id; the deployed build binds to it.
+  "main": ".svelte-kit/cloudflare/_worker.js",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".svelte-kit/cloudflare"
+  },
   "kv_namespaces": [
     {
       "binding": "FLEXYDAY_KV",
-      // Local development emulates KV and ignores this id; the deployed Pages
-      // build binds to it.
       "id": "37ef03fe84874e369ef1124c9a1ce758"
     }
   ]
